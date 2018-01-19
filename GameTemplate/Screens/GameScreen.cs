@@ -34,6 +34,7 @@ namespace GameTemplate.Screens
         //initial starting points for black rectangle
         Random randGen = new Random();
 
+        bool fall = false;
         List<int> enemeyX = new List<int>(new int[] { });
         List<int> enemeyY = new List<int>(new int[] { });
         List<int> enemeySize = new List<int>(new int[] { });
