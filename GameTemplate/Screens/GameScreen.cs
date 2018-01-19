@@ -41,33 +41,23 @@ namespace GameTemplate.Screens
         int heroX = 100;
         int heroY = 399;
         int heroSize = 50;
-        int enemyMovementSpeed= 10;
+        int enemyMovementSpeed = 10;
         int enemyMovementMaxSpeed = 30;
         int hitSpeedChange = 2;
         int enemySpawn = 0;
 
-
-        int pylonX = 1200;
         int pylonY = 400;
         int pylonSize = 20;
-
-        int birdX = 0;
-        int birdY = 0;
-        int birdSize = 20;
-
-        int planeX = 0;
-        int planeY = 0;
-        int planeSize = 30;
 
         int ToastX;
         int ToastY;
         int ToastSize;
-        int toastHungerBarValue;
+        int toastHungerBarValue = 25;
 
         int umbrellaX;
         int umbrellaY;
         int umbrellaSize;
-        Boolean umbrelliaCollsionProtection;
+        Boolean umbrelliaCollsionProtection = false;
 
         int winX;
         int winY;
@@ -75,13 +65,13 @@ namespace GameTemplate.Screens
         SolidBrush winCondtion = new SolidBrush(Color.Yellow);
 
         int enemyOccurenceCounter = 0;
-        int powerupOccurenceCounter;
-        int hungerBarCounter;
+        int powerUpOccurenceCounter = 0;
+        int hungerBarCounter = 0;
         bool hungerBar = false;
         int temp = 60000;
 
         int lineX = 0;
-        int lineY= 450;
+        int lineY = 450;
         int lineLength = 16000;
         int lineHeight = 450;
 
@@ -242,7 +232,7 @@ namespace GameTemplate.Screens
         /// <param name="e"></param>
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            
+
             enemyOccurenceCounter += gameTimer.Interval;
             //
             temp = temp - gameTimer.Interval;
@@ -251,7 +241,7 @@ namespace GameTemplate.Screens
             //NOTE -- if you add any more objects in the backround, then make sure to make the movements for them here.
             for (int i = 0; i < enemeyX.Count; i++)
             {
-                enemeyX[i] -= enemyMovementSpeed -5;
+                enemeyX[i] -= enemyMovementSpeed - 5;
 
             }
             if (dDown == true)
@@ -272,18 +262,18 @@ namespace GameTemplate.Screens
                 heroY = heroY - 2;
             }
 
-             if (spaceDown == true && hungerBarCounter == 100)
-             {
-                enemyMovementSpeed = enemyMovementSpeed *2;
+            if (spaceDown == true && hungerBarCounter == 100)
+            {
+                enemyMovementSpeed = enemyMovementSpeed * 2;
                 hungerBarCounter--;
                 hungerBar = true;
-             }
-             else if( hungerBarCounter == 0 && hungerBar == true)
+            }
+            else if (hungerBarCounter == 0 && hungerBar == true)
             {
-                 enemyMovementSpeed = enemyMovementSpeed / 2;
+                enemyMovementSpeed = enemyMovementSpeed / 2;
                 hungerBar = false;
             }
-           
+
             #endregion
             #region monster movements - TO BE COMPLETed
 
@@ -292,7 +282,7 @@ namespace GameTemplate.Screens
             #region collision detection - TO BE COMPLETED
             //Intersction rectangles
             Rectangle heroRec = new Rectangle(heroX, heroY, heroSize, heroSize);
-            Rectangle pylonRec = new Rectangle(pylonX, pylonY, pylonSize, pylonSize);
+            Rectangle pylonRec = new Rectangle(hero, pylonY, pylonSize, pylonSize);
             Rectangle planeRec = new Rectangle(planeX, planeY, planeSize, planeSize);
             Rectangle birdRec = new Rectangle(birdX, birdY, birdSize, birdSize);
             Rectangle groundRec = new Rectangle(lineX, lineY, lineLength, lineHeight);
@@ -304,11 +294,11 @@ namespace GameTemplate.Screens
             {
                 enemyMovementSpeed = enemyMovementSpeed / hitSpeedChange;
             }
-            else if(heroRec.IntersectsWith(pylonRec) && umbrelliaCollsionProtection == true)
+            else if (heroRec.IntersectsWith(pylonRec) && umbrelliaCollsionProtection == true)
             {
                 umbrelliaCollsionProtection = false;
             }
-                
+
             if (heroRec.IntersectsWith(planeRec) && umbrelliaCollsionProtection == false)
             {
                 enemyMovementSpeed = enemyMovementSpeed / hitSpeedChange;
@@ -337,13 +327,13 @@ namespace GameTemplate.Screens
                 umbrelliaCollsionProtection = true;
             }
             // boundaries
-              if (heroRec.IntersectsWith(groundRec))
+            if (heroRec.IntersectsWith(groundRec))
             {
                 heroY--;
             }
-              if (heroRec.IntersectsWith(ceilingRec))
+            if (heroRec.IntersectsWith(ceilingRec))
             {
-                heroY+=2;
+                heroY += 2;
             }
             #endregion
 
@@ -355,7 +345,7 @@ namespace GameTemplate.Screens
 
             //refresh the screen, which causes the GameScreen_Paint method to run
             Refresh();
-      }  
+        }
 
         /// <summary>
         /// Open the pause dialog box and gets Cancel or Abort result from it
@@ -391,7 +381,7 @@ namespace GameTemplate.Screens
 
             e.Graphics.DrawLine(ceilingPen, ceilingX, ceilingY, ceilingLength, ceilingY);
 
-            for(int i = 0; i <enemeyX.Count; i++)
+            for (int i = 0; i < enemeyX.Count; i++)
             {
                 e.Graphics.FillRectangle(heroBrush, enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
             }
@@ -399,31 +389,31 @@ namespace GameTemplate.Screens
 
         }
         private void SpawnGen()
-        {                     
-                enemyOccurenceCounter = 0;
-                enemySpawn = randGen.Next(0, 6);
+        {
+            enemyOccurenceCounter = 0;
+            enemySpawn = randGen.Next(0, 6);
 
-                switch (enemySpawn)
-                {
-                    case 0:
-                    enemeyX.Add(heroX + 1000);                   
+            switch (enemySpawn)
+            {
+                case 0:
+                    enemeyX.Add(heroX + 1000);
                     enemeyY.Add(pylonY);
-                    enemeySize.Add(pylonSize);                    
+                    enemeySize.Add(pylonSize);
                     //a single pylon will spawn
                     break;
-                    case 1:
+                case 1:
                     //set airplane off screen and move to the left of the screen.
                     enemeyX.Add(heroX + 1000);
                     enemeyY.Add(heroY);
                     enemeySize.Add(heroSize);
                     break;
-                    case 2:
+                case 2:
                     //set a bird off screen and move to the left of the screen.
                     enemeyX.Add(heroX + 1000);
                     enemeyY.Add(heroY);
                     enemeySize.Add(heroSize);
                     break;
-                    case 3:
+                case 3:
                     //set a pylon off screen and a bird 200 pixels to the right of the pylon,
                     //Pylon
                     enemeyX.Add(heroX + 1000);
@@ -434,18 +424,18 @@ namespace GameTemplate.Screens
                     enemeyY.Add(heroY);
                     enemeySize.Add(heroSize);
                     break;
-                    case 4:
+                case 4:
                     // set a pylon off and an airplane 200 pixels to the right of the pylon
                     //Pylon
                     enemeyX.Add(heroX + 1000);
                     enemeyY.Add(pylonY);
                     enemeySize.Add(heroSize);
                     //Plane
-                    enemeyX.Add(heroX+ 1200);
+                    enemeyX.Add(heroX + 1200);
                     enemeyY.Add(heroY);
                     enemeySize.Add(heroSize);
                     break;
-                    case 5:
+                case 5:
                     //set an airplane off screen and bird 200 pixels to the right of the plane
                     //Airplane
                     enemeyX.Add(heroX + 1000);
@@ -456,11 +446,33 @@ namespace GameTemplate.Screens
                     enemeyY.Add(heroY);
                     enemeySize.Add(heroSize);
                     break;
-                }
-            
+            }
+
         }
     }
+    private void PowerUpSpawn()
+    {
+         = 0;
+        enemySpawn = randGen.Next(0, 6);
 
+        switch (enemySpawn)
+        {
+            case 0:
+                enemeyX.Add(heroX + 1000);
+                enemeyY.Add(pylonY);
+                enemeySize.Add(pylonSize);
+                //a single pylon will spawn
+                break;
+            case 1:
+                //set airplane off screen and move to the left of the screen.
+                enemeyX.Add(heroX + 1000);
+                enemeyY.Add(heroY);
+                enemeySize.Add(heroSize);
+                break;
+            case 2:
+
+        }
+    }
 }
     
 
