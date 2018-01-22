@@ -39,6 +39,10 @@ namespace GameTemplate.Screens
         List<int> enemeyY = new List<int>(new int[] { });
         List<int> enemeySize = new List<int>(new int[] { });
 
+        List<int> powerUpX = new List<int>(new int[] { });
+        List<int> powerUpY = new List<int>(new int[] { });
+        List<int> powerUpSize = new List<int>(new int[] { });
+
         int heroX = 100;
         int heroY = 399;
         int heroSize = 50;
@@ -46,48 +50,49 @@ namespace GameTemplate.Screens
         int enemyMovementMaxSpeed = 30;
         int hitSpeedChange = 2;
         int enemySpawn = 0;
+        int powerUpSpwn = 0;
+        Boolean collision = false;
+      
+
+        int toastY = 400;
+        int toastSize = 30;
 
         int pylonY = 400;
         int pylonSize = 20;
 
-        int ToastX;
-        int ToastY;
-        int ToastSize;
         int toastHungerBarValue = 25;
-
-        int umbrellaX;
-        int umbrellaY;
-        int umbrellaSize;
+        //Umbrealla variables
+        int umbreallaY = 400;
+        int umbrelllaSize = 25;
         Boolean umbrelliaCollsionProtection = false;
 
         int winX;
         int winY;
         int winSize;
         SolidBrush winCondtion = new SolidBrush(Color.Yellow);
-
-        int enemyOccurenceCounter = 0;
+        //Mischallionuis variables
+        int enemyOccurenceCounter = 20;
         int powerUpOccurenceCounter = 0;
         int hungerBarCounter = 0;
         bool hungerBar = false;
         int temp = 60000;
-
+        //Bottom of Level variables
         int lineX = 0;
         int lineY = 450;
         int lineLength = 16000;
         int lineHeight = 450;
-
+        // Celing Of Level variables
         int ceilingX = 0;
         int ceilingY = 250;
         int ceilingHeight = 5;
         int ceilingLength = 160000;
-        Pen ceilingPen = new Pen(Color.Red, 10);
 
-        Pen linePen = new Pen(Color.Red, 10);
-        Pen imagePen = new Pen(Color.Black, 10);
 
         //Graphics objects
         SolidBrush heroBrush = new SolidBrush(Color.Black);
-
+        Pen ceilingPen = new Pen(Color.Red, 10);
+        Pen linePen = new Pen(Color.Red, 10);
+        Pen imagePen = new Pen(Color.Black, 10);
         //----------------------------------------
 
         // PreviewKeyDown required for UserControl instead of KeyDown as on a form
@@ -235,26 +240,45 @@ namespace GameTemplate.Screens
         {
 
             enemyOccurenceCounter += gameTimer.Interval;
+            powerUpOccurenceCounter += gameTimer.Interval;
             //
-            temp = temp - gameTimer.Interval;
-
-            #region main character movements
-            //NOTE -- if you add any more objects in the backround, then make sure to make the movements for them here.
             for (int i = 0; i < enemeyX.Count; i++)
             {
-                enemeyX[i] -= enemyMovementSpeed - 5;
+                if (enemeyX[i] <0)
+                {
+                    enemeyX.RemoveAt(i);
+                    enemeyY.RemoveAt(i);
+                    enemeySize.RemoveAt(i);
+                }
+            }
+            for (int i = 0; i < powerUpX.Count; i++)
+            {
+                if (powerUpX[i] < 0)
+                {
+                    powerUpX.RemoveAt(i);
+                    powerUpY.RemoveAt(i);
+                    powerUpSize.RemoveAt(i);
+                }
+            }
+            temp = temp - gameTimer.Interval;
+            #region main character movements
+            //NOTE -- if you add any more objects in the backround, then make sure to make the movements for them here.
+
+            for (int i = 0; i < enemeyX.Count; i++)
+            {
+                enemeyX[i] -= enemyMovementSpeed - 3;
 
             }
+            //for (int i = 0; i < powerUpX.Count; i++)
+            //{
+            //    powerUpX[i] -= enemyMovementSpeed - 5;
+            //}
+
             if (dDown == true)
             {
-                if (enemyMovementSpeed < enemyMovementMaxSpeed && enemyMovementSpeed >= 10)
+                if (enemyMovementSpeed < enemyMovementMaxSpeed )
                 {
                     enemyMovementSpeed = enemyMovementSpeed + 2;
-
-                }
-                for (int i = 0; i < enemeyX.Count; i++)
-                {
-                    enemeyX[i] -= enemyMovementSpeed;
 
                 }
             }
@@ -283,58 +307,98 @@ namespace GameTemplate.Screens
             #region collision detection - TO BE COMPLETED
             //Intersction rectangles
             Rectangle heroRec = new Rectangle(heroX, heroY, heroSize, heroSize);
-            Rectangle pylonRec = new Rectangle(hero, pylonY, pylonSize, pylonSize);
-            Rectangle planeRec = new Rectangle(planeX, planeY, planeSize, planeSize);
-            Rectangle birdRec = new Rectangle(birdX, birdY, birdSize, birdSize);
+
+            for (int i = 0; i < enemeyX.Count; i++)
+            {
+                Rectangle enemy1rec = new Rectangle(enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
+                //if (i == 1)
+                //{
+                //    Rectangle enemy2rec = new Rectangle(enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
+
+                    //if (heroRec.IntersectsWith(enemy2rec) && umbrelliaCollsionProtection == false)
+                    //{
+                    //    enemyMovementSpeed = enemyMovementSpeed / hitSpeedChange;
+                    //}
+                    //else if (heroRec.IntersectsWith(enemy2rec) && umbrelliaCollsionProtection == true)
+                    //{
+                    //    umbrelliaCollsionProtection = false;
+                    //}
+                //}
+                if (heroRec.IntersectsWith(enemy1rec) && umbrelliaCollsionProtection == false && collision == false)
+                {
+                    enemyMovementSpeed = enemyMovementSpeed / hitSpeedChange;
+                    collision = true;
+                }
+                else if (heroRec.IntersectsWith(enemy1rec) && umbrelliaCollsionProtection == true)
+                {
+                    umbrelliaCollsionProtection = false;
+                }
+
+                if(enemyMovementSpeed >= 10)
+                {
+                    collision = false;
+                }
+
+            }
+            //if (enemySpawn >= 6)
+            //{
+            //    Rectangle enemy1rec = new Rectangle(enemeyX[0], enemeyY[0], enemeySize[0], enemeySize[0]);
+            //    if (enemySpawn == 3 || enemySpawn == 4 || enemySpawn == 5)
+            //    {
+            //        Rectangle enemy2rec = new Rectangle(enemeyX[1], enemeyY[1], enemeySize[1], enemeySize[1]);
+            //    }
+            //}
+
             Rectangle groundRec = new Rectangle(lineX, lineY, lineLength, lineHeight);
-            Rectangle toastRec = new Rectangle(ToastX, ToastY, ToastSize, ToastSize);
-            Rectangle umbrellaRec = new Rectangle(umbrellaX, umbrellaY, umbrellaSize, umbrellaSize);
             Rectangle ceilingRec = new Rectangle(ceilingX, ceilingY, ceilingLength, ceilingHeight);
-            //enemies 
-            if (heroRec.IntersectsWith(pylonRec) && umbrelliaCollsionProtection == false)
+            for (int i = 0; i < powerUpX.Count; i++)
             {
-                enemyMovementSpeed = enemyMovementSpeed / hitSpeedChange;
+                Rectangle powerUpRec = new Rectangle(powerUpX[i], powerUpY[i], powerUpSize[i], powerUpSize[i]);
+
+                if (heroRec.IntersectsWith(powerUpRec))
+                {
+                    if (powerUpSpwn == 1)
+                    {
+                        if (umbrelliaCollsionProtection == false)
+                        {
+                            umbrelliaCollsionProtection = true;
+                        }
+                        else if (powerUpSpwn == 0)
+                        {
+                            toastHungerBarValue += 25;
+                        }
+                    }
+                }
+
+                //enemies 
+                //Poweups
+
             }
-            else if (heroRec.IntersectsWith(pylonRec) && umbrelliaCollsionProtection == true)
+            // boundaries
+            if (wDown == true && !fall)
+            {// Make jump and fall method
+                heroY = heroY - 5;
+            }
+            else
             {
-                umbrelliaCollsionProtection = false;
+                fall = true;
+            }
+            // falling 
+            if (fall == true)
+            {
+                heroY += 5;
             }
 
-            if (heroRec.IntersectsWith(planeRec) && umbrelliaCollsionProtection == false)
-            {
-                enemyMovementSpeed = enemyMovementSpeed / hitSpeedChange;
-            }
-            else if (heroRec.IntersectsWith(planeRec) && umbrelliaCollsionProtection == true)
-            {
-                umbrelliaCollsionProtection = false;
-            }
-
-            if (heroRec.IntersectsWith(birdRec) && umbrelliaCollsionProtection == false)
-            {
-                enemyMovementSpeed = enemyMovementSpeed / hitSpeedChange;
-            }
-            else if (heroRec.IntersectsWith(birdRec) && umbrelliaCollsionProtection == true)
-            {
-                umbrelliaCollsionProtection = false;
-            }
-
-            //powerups
-            if (heroRec.IntersectsWith(toastRec))
-            {
-                toastHungerBarValue = toastHungerBarValue + 25;
-            }
-            if (heroRec.IntersectsWith(umbrellaRec) && umbrelliaCollsionProtection == false)
-            {
-                umbrelliaCollsionProtection = true;
-            }
             // boundaries
             if (heroRec.IntersectsWith(groundRec))
             {
-                heroY--;
+                fall = false;
+                heroY -= 5;
             }
             if (heroRec.IntersectsWith(ceilingRec))
             {
-                heroY += 2;
+                heroY += 5;
+                fall = true;
             }
             #endregion
 
@@ -343,10 +407,14 @@ namespace GameTemplate.Screens
                 SpawnGen();
 
             }
-
+            if (powerUpOccurenceCounter >= 2000)
+            {
+                PowerUpGen();
+            }
             //refresh the screen, which causes the GameScreen_Paint method to run
             Refresh();
         }
+
 
         /// <summary>
         /// Open the pause dialog box and gets Cancel or Abort result from it
@@ -386,6 +454,12 @@ namespace GameTemplate.Screens
             {
                 e.Graphics.FillRectangle(heroBrush, enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
             }
+
+            for (int i = 0; i < powerUpX.Count; i++)
+            {
+                e.Graphics.FillEllipse(heroBrush, powerUpX[i], powerUpY[i], powerUpSize[i], powerUpSize[i]);
+            }
+
 
 
         }
@@ -450,31 +524,27 @@ namespace GameTemplate.Screens
             }
 
         }
-    }
-    private void PowerUpSpawn()
-    {
-         = 0;
-        enemySpawn = randGen.Next(0, 6);
 
-        switch (enemySpawn)
+        private void PowerUpGen()
         {
-            case 0:
-                enemeyX.Add(heroX + 1000);
-                enemeyY.Add(pylonY);
-                enemeySize.Add(pylonSize);
-                //a single pylon will spawn
-                break;
-            case 1:
-                //set airplane off screen and move to the left of the screen.
-                enemeyX.Add(heroX + 1000);
-                enemeyY.Add(heroY);
-                enemeySize.Add(heroSize);
-                break;
-            case 2:
+            powerUpOccurenceCounter = 0;
+            powerUpSpwn = randGen.Next(0, 2);
 
+            switch (enemySpawn)
+            {
+                case 0:
+                    powerUpX.Add(heroX + 1000);
+                    powerUpY.Add(toastY);
+                    powerUpSize.Add(toastSize);
+                    //set a toast power up off screen 
+                    break;
+                case 1:
+                    //set umbrella off screen and move to the left of the screen.
+                    powerUpX.Add(heroX + 1000);
+                    powerUpY.Add(umbreallaY);
+                    powerUpSize.Add(umbrelllaSize);
+                    break;
+            }
         }
     }
 }
-    
-
-    
