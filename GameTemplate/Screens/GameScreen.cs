@@ -43,23 +43,22 @@ namespace GameTemplate.Screens
         List<int> powerUpY = new List<int>(new int[] { });
         List<int> powerUpSize = new List<int>(new int[] { });
 
-        int heroX = 100;
+        int heroX = 200;
         int heroY = 399;
         int heroSize = 50;
+        int runAnimation = 0;
         int enemyMovementSpeed = 10;
         int enemyMovementMaxSpeed = 30;
         int hitSpeedChange = 2;
         int enemySpawn = 0;
         int powerUpSpwn = 0;
         Boolean collision = false;
-      
 
         int toastY = 400;
         int toastSize = 30;
 
         int pylonY = 400;
         int pylonSize = 20;
-
         int toastHungerBarValue = 25;
         //Umbrealla variables
         int umbreallaY = 400;
@@ -71,7 +70,7 @@ namespace GameTemplate.Screens
         int winSize;
         SolidBrush winCondtion = new SolidBrush(Color.Yellow);
         //Mischallionuis variables
-        int enemyOccurenceCounter = 20;
+        int enemyOccurenceCounter = 0;
         int powerUpOccurenceCounter = 0;
         int hungerBarCounter = 0;
         bool hungerBar = false;
@@ -83,7 +82,7 @@ namespace GameTemplate.Screens
         int lineHeight = 450;
         // Celing Of Level variables
         int ceilingX = 0;
-        int ceilingY = 250;
+        int ceilingY = 150;
         int ceilingHeight = 5;
         int ceilingLength = 160000;
 
@@ -93,6 +92,7 @@ namespace GameTemplate.Screens
         Pen ceilingPen = new Pen(Color.Red, 10);
         Pen linePen = new Pen(Color.Red, 10);
         Pen imagePen = new Pen(Color.Black, 10);
+        SolidBrush 
         //----------------------------------------
 
         // PreviewKeyDown required for UserControl instead of KeyDown as on a form
@@ -244,7 +244,7 @@ namespace GameTemplate.Screens
             //
             for (int i = 0; i < enemeyX.Count; i++)
             {
-                if (enemeyX[i] <0)
+                if (enemeyX[i] < 0)
                 {
                     enemeyX.RemoveAt(i);
                     enemeyY.RemoveAt(i);
@@ -269,14 +269,15 @@ namespace GameTemplate.Screens
                 enemeyX[i] -= enemyMovementSpeed - 3;
 
             }
-            //for (int i = 0; i < powerUpX.Count; i++)
-            //{
-            //    powerUpX[i] -= enemyMovementSpeed - 5;
-            //}
+            for (int i = 0; i < powerUpX.Count; i++)
+            {
+                powerUpX[i] -= enemyMovementSpeed - 3;
+
+            }
 
             if (dDown == true)
             {
-                if (enemyMovementSpeed < enemyMovementMaxSpeed )
+                if (enemyMovementSpeed < enemyMovementMaxSpeed)
                 {
                     enemyMovementSpeed = enemyMovementSpeed + 2;
 
@@ -287,7 +288,7 @@ namespace GameTemplate.Screens
                 heroY = heroY - 2;
             }
 
-            if (spaceDown == true && hungerBarCounter == 100)
+            if (spaceDown == true && hungerBarCounter >= 100)
             {
                 enemyMovementSpeed = enemyMovementSpeed * 2;
                 hungerBarCounter--;
@@ -311,43 +312,25 @@ namespace GameTemplate.Screens
             for (int i = 0; i < enemeyX.Count; i++)
             {
                 Rectangle enemy1rec = new Rectangle(enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
-                //if (i == 1)
-                //{
-                //    Rectangle enemy2rec = new Rectangle(enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
-
-                    //if (heroRec.IntersectsWith(enemy2rec) && umbrelliaCollsionProtection == false)
-                    //{
-                    //    enemyMovementSpeed = enemyMovementSpeed / hitSpeedChange;
-                    //}
-                    //else if (heroRec.IntersectsWith(enemy2rec) && umbrelliaCollsionProtection == true)
-                    //{
-                    //    umbrelliaCollsionProtection = false;
-                    //}
-                //}
                 if (heroRec.IntersectsWith(enemy1rec) && umbrelliaCollsionProtection == false && collision == false)
                 {
                     enemyMovementSpeed = enemyMovementSpeed / hitSpeedChange;
                     collision = true;
                 }
-                else if (heroRec.IntersectsWith(enemy1rec) && umbrelliaCollsionProtection == true)
+                if (heroRec.IntersectsWith(enemy1rec) && umbrelliaCollsionProtection == true)
                 {
                     umbrelliaCollsionProtection = false;
+                    enemeyX.RemoveAt(i);
+                    enemeyY.RemoveAt(i);
+                    enemeySize.RemoveAt(i);
                 }
 
-                if(enemyMovementSpeed >= 10)
+                if (enemyMovementSpeed >= 10)
                 {
                     collision = false;
                 }
 
             }
-            //if (enemySpawn >= 6)
-            //{
-            //    Rectangle enemy1rec = new Rectangle(enemeyX[0], enemeyY[0], enemeySize[0], enemeySize[0]);
-            //    if (enemySpawn == 3 || enemySpawn == 4 || enemySpawn == 5)
-            //    {
-            //        Rectangle enemy2rec = new Rectangle(enemeyX[1], enemeyY[1], enemeySize[1], enemeySize[1]);
-            //    }
-            //}
 
             Rectangle groundRec = new Rectangle(lineX, lineY, lineLength, lineHeight);
             Rectangle ceilingRec = new Rectangle(ceilingX, ceilingY, ceilingLength, ceilingHeight);
@@ -362,11 +345,18 @@ namespace GameTemplate.Screens
                         if (umbrelliaCollsionProtection == false)
                         {
                             umbrelliaCollsionProtection = true;
+                            powerUpX.RemoveAt(i);
+                            powerUpY.RemoveAt(i);
+                            powerUpSize.RemoveAt(i);
                         }
-                        else if (powerUpSpwn == 0)
-                        {
-                            toastHungerBarValue += 25;
-                        }
+                    }
+                    if (powerUpSpwn == 0)
+                    {
+                        toastHungerBarValue += 25;
+                        powerUpX.RemoveAt(i);
+                        powerUpY.RemoveAt(i);
+                        powerUpSize.RemoveAt(i);
+
                     }
                 }
 
@@ -407,7 +397,7 @@ namespace GameTemplate.Screens
                 SpawnGen();
 
             }
-            if (powerUpOccurenceCounter >= 2000)
+            if (powerUpOccurenceCounter >= 4000)
             {
                 PowerUpGen();
             }
@@ -444,7 +434,21 @@ namespace GameTemplate.Screens
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             //Player rectangle
-            e.Graphics.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+            if(dDown == false)
+            {
+                e.Graphics.DrawImage(Properties.Resources.Idle__1_, heroX, heroY, heroSize, heroSize);
+            }
+            if (runAnimation == 0)
+            {
+                e.Graphics.DrawImage(Properties.Resources.Run__11_, heroX, heroY, heroSize, heroSize);
+                runAnimation = 1;
+            }
+            if (runAnimation == 1)
+            {
+                e.Graphics.DrawImage(Properties.Resources.Run__1_, heroX, heroY, heroSize, heroSize);
+                runAnimation = 0;
+            }
+
             //Lines
             e.Graphics.DrawLine(linePen, lineX, lineY, lineLength, lineY);
 
@@ -452,7 +456,18 @@ namespace GameTemplate.Screens
 
             for (int i = 0; i < enemeyX.Count; i++)
             {
-                e.Graphics.FillRectangle(heroBrush, enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
+                if(enemeySize[i] == 45 )
+                {
+                    e.Graphics.DrawImage(Properties.Resources.paper_plane, enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
+                }
+                if (enemeySize[i] == pylonSize)
+                {
+                    e.Graphics.DrawImage(Properties.Resources.cone, enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
+                }
+                if (enemeySize[i] == 40)
+                {
+                    e.Graphics.DrawImage(Properties.Resources.bird, enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
+                }
             }
 
             for (int i = 0; i < powerUpX.Count; i++)
@@ -480,46 +495,46 @@ namespace GameTemplate.Screens
                     //set airplane off screen and move to the left of the screen.
                     enemeyX.Add(heroX + 1000);
                     enemeyY.Add(heroY);
-                    enemeySize.Add(heroSize);
+                    enemeySize.Add(heroSize - 5);
                     break;
                 case 2:
                     //set a bird off screen and move to the left of the screen.
                     enemeyX.Add(heroX + 1000);
                     enemeyY.Add(heroY);
-                    enemeySize.Add(heroSize);
+                    enemeySize.Add(heroSize - 10);
                     break;
                 case 3:
                     //set a pylon off screen and a bird 200 pixels to the right of the pylon,
                     //Pylon
                     enemeyX.Add(heroX + 1000);
                     enemeyY.Add(pylonY);
-                    enemeySize.Add(heroSize);
+                    enemeySize.Add(pylonSize);
                     //Bird
                     enemeyX.Add(heroX + 1200);
                     enemeyY.Add(heroY);
-                    enemeySize.Add(heroSize);
+                    enemeySize.Add(heroSize - 10);
                     break;
                 case 4:
                     // set a pylon off and an airplane 200 pixels to the right of the pylon
                     //Pylon
                     enemeyX.Add(heroX + 1000);
                     enemeyY.Add(pylonY);
-                    enemeySize.Add(heroSize);
+                    enemeySize.Add(pylonSize);
                     //Plane
                     enemeyX.Add(heroX + 1200);
                     enemeyY.Add(heroY);
-                    enemeySize.Add(heroSize);
+                    enemeySize.Add(heroSize - 5);
                     break;
                 case 5:
-                    //set an airplane off screen and bird 200 pixels to the right of the plane
+                    //set an airplane and bird offscreen
                     //Airplane
                     enemeyX.Add(heroX + 1000);
                     enemeyY.Add(heroY);
-                    enemeySize.Add(heroSize);
+                    enemeySize.Add(heroSize - 5);
                     //Bird
                     enemeyX.Add(heroX + 1200);
                     enemeyY.Add(heroY);
-                    enemeySize.Add(heroSize);
+                    enemeySize.Add(heroSize - 10);
                     break;
             }
 
@@ -530,17 +545,17 @@ namespace GameTemplate.Screens
             powerUpOccurenceCounter = 0;
             powerUpSpwn = randGen.Next(0, 2);
 
-            switch (enemySpawn)
+            switch (powerUpSpwn)
             {
                 case 0:
-                    powerUpX.Add(heroX + 1000);
+                    powerUpX.Add(heroX + 1100);
                     powerUpY.Add(toastY);
                     powerUpSize.Add(toastSize);
                     //set a toast power up off screen 
                     break;
                 case 1:
                     //set umbrella off screen and move to the left of the screen.
-                    powerUpX.Add(heroX + 1000);
+                    powerUpX.Add(heroX + 1100);
                     powerUpY.Add(umbreallaY);
                     powerUpSize.Add(umbrelllaSize);
                     break;

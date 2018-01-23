@@ -103,6 +103,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Screens\GameScreen.resx">
       <DependentUpon>GameScreen.cs</DependentUpon>
@@ -134,6 +135,54 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cone-clipart-safety-cone-12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cone.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paper_plane_by_hoangvanvan-d60qy1j.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cb5d873d48e56e33a6971ef927cf430d-school-bus-illustration-by-vexels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\9be88ed5-05ae-41f3-b1af-22b2e2e529b5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Idle %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jump %2810%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Run %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Run %2811%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Car Horn Honk 1-SoundBible.com-248048021.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Class Bell-SoundBible.com-1426436341.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Greater Yellowlegs Call-SoundBible.com-103160061.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jump-SoundBible.com-1007297584.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Power-Up-KP-1879176533.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\punch_or_whack_-Vladimir-403040765.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spear_throw-Mike_Koenig-2064202968.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
