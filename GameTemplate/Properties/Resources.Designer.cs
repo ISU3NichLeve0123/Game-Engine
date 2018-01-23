@@ -61,6 +61,26 @@ namespace GameTemplate.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] _8_BitDAYS_of_DASH__Sakurasou_no_Pet_na_Kanojo_ED__耳コピ {
+            get {
+                object obj = ResourceManager.GetObject("_8_BitDAYS_of_DASH__Sakurasou_no_Pet_na_Kanojo_ED__耳コピ", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] BackSong {
+            get {
+                object obj = ResourceManager.GetObject("BackSong", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap bird {
@@ -200,6 +220,26 @@ namespace GameTemplate.Properties {
         internal static System.IO.UnmanagedMemoryStream spear_throw_Mike_Koenig_2064202968 {
             get {
                 return ResourceManager.GetStream("spear_throw_Mike_Koenig_2064202968", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap toast {
+            get {
+                object obj = ResourceManager.GetObject("toast", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap umbrella {
+            get {
+                object obj = ResourceManager.GetObject("umbrella", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
