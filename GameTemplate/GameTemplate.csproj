@@ -72,17 +72,17 @@
     <Compile Include="Screens\InstructionScreen.Designer.cs">
       <DependentUpon>InstructionScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\OptionScreen.cs">
+    <Compile Include="Screens\WinScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Screens\OptionScreen.Designer.cs">
-      <DependentUpon>OptionScreen.cs</DependentUpon>
+    <Compile Include="Screens\WinScreen.Designer.cs">
+      <DependentUpon>WinScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\ScoreScreen.cs">
+    <Compile Include="Screens\LostScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Screens\ScoreScreen.Designer.cs">
-      <DependentUpon>ScoreScreen.cs</DependentUpon>
+    <Compile Include="Screens\LostScreen.Designer.cs">
+      <DependentUpon>LostScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Screens\MenuScreen.cs">
       <SubType>UserControl</SubType>
@@ -113,11 +113,11 @@
     <EmbeddedResource Include="Screens\InstructionScreen.resx">
       <DependentUpon>InstructionScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\OptionScreen.resx">
-      <DependentUpon>OptionScreen.cs</DependentUpon>
+    <EmbeddedResource Include="Screens\WinScreen.resx">
+      <DependentUpon>WinScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\ScoreScreen.resx">
-      <DependentUpon>ScoreScreen.cs</DependentUpon>
+    <EmbeddedResource Include="Screens\LostScreen.resx">
+      <DependentUpon>LostScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Screens\MenuScreen.resx">
       <DependentUpon>MenuScreen.cs</DependentUpon>

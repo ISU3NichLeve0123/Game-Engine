@@ -69,20 +69,15 @@ namespace GameTemplate.Screens
         bool hungerBar = false;
         //Pylon variables
         int pylonY = 430;
-        int pylonSize = 20;     
+        int pylonSize = 20;
         //Umbrealla variables
         int umbreallaY = 400;
         int umbrelllaSize = 25;
         Boolean umbrelliaCollsionProtection = false;
-        //Win Condtion
-        int winX;
-        int winY;
-        int winSize;
-        SolidBrush winCondtion = new SolidBrush(Color.Yellow);
         //Random Generator Variables
         Random randGen = new Random();
         int enemyOccurenceCounter = 0;
-        int powerUpOccurenceCounter = 0;       
+        int powerUpOccurenceCounter = 0;
         //Bottom of Level variables
         int lineX = 0;
         int lineY = 450;
@@ -94,12 +89,12 @@ namespace GameTemplate.Screens
         int ceilingHeight = 5;
         int ceilingLength = 160000;
         //Timer
-        int temp = 60000;
+        int temp = 3000;
         //Graphics objects
         SolidBrush heroBrush = new SolidBrush(Color.Black);
         Pen ceilingPen = new Pen(Color.Red, 1);
         Pen linePen = new Pen(Color.Gray, 1);
-        Pen imagePen = new Pen(Color.Black, 10);
+        Font timerFont = new Font("Arial", 16, FontStyle.Bold);
         //----------------------------------------
         // PreviewKeyDown required for UserControl instead of KeyDown as on a form
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -244,12 +239,14 @@ namespace GameTemplate.Screens
         /// <param name="e"></param>
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            //Timer Function
+            countdown();
             //Backround Song
-            if(temp > 0)
+            if (temp > 0)
             {
                 backSongPlayer.Play();
-            }          
-            else if(temp <= 0)
+            }
+            else if (temp <= 0)
             {
                 backSongPlayer.Stop();
             }
@@ -347,7 +344,7 @@ namespace GameTemplate.Screens
                     collision = false;
                 }
 
-            }            
+            }
             //PowerUp Collsion
             for (int i = 0; i < powerUpX.Count; i++)
             {
@@ -373,11 +370,11 @@ namespace GameTemplate.Screens
                         powerUpY.RemoveAt(i);
                         powerUpSize.RemoveAt(i);
                     }
-                }            
+                }
             }
             //jumping collsion
             if (wDown == true && !fall)
-            { 
+            {
                 heroY = heroY - 5;
             }
             else
@@ -401,7 +398,7 @@ namespace GameTemplate.Screens
                 heroY += 5;
                 fall = true;
             }
-            #endregion
+            #endregion        
             //Generates Random Enemy once true
             if (enemyOccurenceCounter >= 1200)
             {
@@ -462,13 +459,14 @@ namespace GameTemplate.Screens
                 runAnimation = 0;
             }
 
-            //Lines/Boundaries
+            //Lines/Boundaries/Timer
             e.Graphics.DrawLine(linePen, lineX, lineY, lineLength, lineY);
             e.Graphics.DrawLine(ceilingPen, ceilingX, ceilingY, ceilingLength, ceilingY);
+            e.Graphics.DrawString("Time: " + temp, timerFont, heroBrush, 800, 50);
             //Enemys
             for (int i = 0; i < enemeyX.Count; i++)
             {
-                if(enemeySize[i] == 45 )
+                if (enemeySize[i] == 45)
                 {
                     e.Graphics.DrawImage(Properties.Resources.paper_plane, enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
                 }
@@ -483,8 +481,8 @@ namespace GameTemplate.Screens
             }
             //PowerUps
             for (int i = 0; i < powerUpX.Count; i++)
-            {                
-                if( powerUpSize[i] == toastSize)
+            {
+                if (powerUpSize[i] == toastSize)
                 {
                     e.Graphics.DrawImage(Properties.Resources.toast, powerUpX[i], powerUpY[i], powerUpSize[i], powerUpSize[i]);
                 }
@@ -560,8 +558,23 @@ namespace GameTemplate.Screens
                     break;
             }
 
+        } //Countsdown until zero
+        private void countdown()
+        {
+            temp--;
+            if (temp <= 0)
+            {
+                gameTimer.Enabled = false;
+                rightArrowDown = leftArrowDown = upArrowDown = downArrowDown = false;
+                ScreenControl.changeScreen(this, "LostScreen");
+            }
+            if (lineX <= heroX)
+            {
+                gameTimer.Enabled = false;
+                rightArrowDown = leftArrowDown = upArrowDown = downArrowDown = false;
+                ScreenControl.changeScreen(this, "ScoreScren");
+            }
         }
-
         private void PowerUpGen()
         {
             powerUpOccurenceCounter = 0;
@@ -582,6 +595,7 @@ namespace GameTemplate.Screens
                     powerUpSize.Add(umbrelllaSize);
                     break;
             }
+
         }
     }
 }
