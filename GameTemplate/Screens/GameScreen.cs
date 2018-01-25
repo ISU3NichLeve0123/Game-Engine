@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Nick and Rhyss, Jan 25, 2018, game with collsions, drawn images and user inputs, goal orientated. 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -50,8 +51,8 @@ namespace GameTemplate.Screens
         List<int> powerUpSize = new List<int>(new int[] { });
         //Hero variables
         int heroX = 200;
-        int heroY = 400;
-        int heroSize = 50;
+        int heroY = 350;
+        int heroSize = 75;
         int runAnimation = 0;
         int enemyMovementSpeed = 10;
         int enemyMovementMaxSpeed = 30;
@@ -61,18 +62,18 @@ namespace GameTemplate.Screens
         int enemySpawn = 0;
         int powerUpSpwn = 0;
         Boolean collision = false;
-        //Toast variables
-        int toastY = 400;
-        int toastSize = 30;
-        int toastHungerBarValue = 25;
-        int hungerBarCounter = 0;
-        bool hungerBar = false;
-        //Pylon variables
-        int pylonY = 430;
-        int pylonSize = 20;
+        ////Toast variables
+        //int toastY = 395;
+        //int toastSize = 55;
+        //int toastHungerBarValue = 250;
+        //Enemy variables
+        int pylonY = 390;
+        int pylonSize = 60;
+        int birdSize = 55;
+        int paperPlaneSize = 70;
         //Umbrealla variables
         int umbreallaY = 400;
-        int umbrelllaSize = 25;
+        int umbrelllaSize = 50;
         Boolean umbrelliaCollsionProtection = false;
         //Random Generator Variables
         Random randGen = new Random();
@@ -81,19 +82,27 @@ namespace GameTemplate.Screens
         //Bottom of Level variables
         int lineX = 0;
         int lineY = 450;
-        int lineLength = 16000;
+        int lineLength = 8000;
         int lineHeight = 450;
         // Celing Of Level variables
         int ceilingX = 0;
         int ceilingY = 150;
         int ceilingHeight = 5;
-        int ceilingLength = 160000;
+        int ceilingLength = 16000;
         //Timer
-        int temp = 3000;
+        int temp = 3750;
+        //Hungerbar
+        int hungerX = -100;
+        //int hungerY = 50;
+        //int hungerSizeLength = 100;
+        //int hungerSizeWidth = 20;
+        //int hungerBarCounter = 500;
+        //bool hungerBar = false;
         //Graphics objects
-        SolidBrush heroBrush = new SolidBrush(Color.Black);
+        SolidBrush bottomBrush = new SolidBrush(Color.Purple);
         Pen ceilingPen = new Pen(Color.Red, 1);
         Pen linePen = new Pen(Color.Gray, 1);
+        SolidBrush topBrush = new SolidBrush(Color.HotPink);
         Font timerFont = new Font("Arial", 16, FontStyle.Bold);
         //----------------------------------------
         // PreviewKeyDown required for UserControl instead of KeyDown as on a form
@@ -284,6 +293,7 @@ namespace GameTemplate.Screens
             for (int i = 0; i < powerUpX.Count; i++)
             {
                 powerUpX[i] -= enemyMovementSpeed - 3;
+                lineLength -= enemyMovementSpeed - 3;
 
             }
 
@@ -300,22 +310,22 @@ namespace GameTemplate.Screens
                 heroY = heroY - 2;
             }
 
-            if (spaceDown == true && hungerBarCounter >= 100)
-            {
-                enemyMovementSpeed = enemyMovementSpeed * 2;
-                hungerBarCounter--;
-                hungerBar = true;
-            }
-            else if (hungerBarCounter == 0 && hungerBar == true)
-            {
-                enemyMovementSpeed = enemyMovementSpeed / 2;
-                hungerBar = false;
-            }
+            //if (spaceDown == true && hungerBarCounter >= 0)
+            //{
+            //    enemyMovementSpeed = enemyMovementSpeed * 2;
+            //    hungerBarCounter-= 50;
+            //    hungerBar = true;
+            //}
+            //else if (hungerBarCounter == 0 && hungerBar == true)
+            //{
+            //    enemyMovementSpeed = enemyMovementSpeed / 1000;
+            //    hungerBar = false;
+            //}
 
             #endregion
             #region monster movements - TO BE COMPLETed
 
-
+            //label1 = Convert.ToString(lineLength);
             #endregion
             #region collision detection - TO BE COMPLETED
             //Intersction rectangles
@@ -365,7 +375,8 @@ namespace GameTemplate.Screens
                     }
                     if (powerUpSpwn == 0)
                     {
-                        toastHungerBarValue += 25;
+                        //hungerBarCounter += toastHungerBarValue; ;
+                        hungerX += 50;
                         powerUpX.RemoveAt(i);
                         powerUpY.RemoveAt(i);
                         powerUpSize.RemoveAt(i);
@@ -398,12 +409,11 @@ namespace GameTemplate.Screens
                 heroY += 5;
                 fall = true;
             }
-            #endregion        
+            #endregion
             //Generates Random Enemy once true
             if (enemyOccurenceCounter >= 1200)
             {
                 SpawnGen();
-
             }
             //Generates Random PowerUp once true
             if (powerUpOccurenceCounter >= 4000)
@@ -446,27 +456,42 @@ namespace GameTemplate.Screens
             if (runAnimation == 0)
             {
                 e.Graphics.DrawImage(Properties.Resources.Run__11_, heroX, heroY, heroSize, heroSize);
-                runAnimation = 1;
             }
-            if (runAnimation == 1)
-            {
-                e.Graphics.DrawImage(Properties.Resources.Idle__1_, heroX, heroY, heroSize, heroSize);
-                runAnimation = 2;
-            }
-            if (runAnimation == 2)
-            {
-                e.Graphics.DrawImage(Properties.Resources.Run__1_, heroX, heroY, heroSize, heroSize);
-                runAnimation = 0;
-            }
+            //if (runAnimation == 1)
+            //{
+            //    e.Graphics.DrawImage(Properties.Resources.Idle__1_, heroX, heroY, heroSize, heroSize);
+            //    runAnimation = 2;
+            //}
+            //if (runAnimation == 2)
+            //{
+            //    e.Graphics.DrawImage(Properties.Resources.Run__1_, heroX, heroY, heroSize, heroSize);
+            //    runAnimation = 0;
+            //}
 
-            //Lines/Boundaries/Timer
+            //Lines/Boundaries/Timer/HungerLabel
             e.Graphics.DrawLine(linePen, lineX, lineY, lineLength, lineY);
-            e.Graphics.DrawLine(ceilingPen, ceilingX, ceilingY, ceilingLength, ceilingY);
-            e.Graphics.DrawString("Time: " + temp, timerFont, heroBrush, 800, 50);
+            e.Graphics.DrawImage(Properties.Resources.school_bus, lineLength,350 , 150, 150);
+            e.Graphics.FillRectangle(bottomBrush, lineX, lineY, lineLength+ 1000, lineLength + 1000);
+            e.Graphics.FillRectangle(topBrush, ceilingX, 0, lineLength + 1000, 150);
+            e.Graphics.DrawString("Time: " + temp, timerFont, bottomBrush, 800, 50);
+            if(umbrelliaCollsionProtection == true )
+            {
+                e.Graphics.DrawImage(Properties.Resources.umbrella, 300, 40, 50, 50);
+                e.Graphics.DrawString("Umbrella PowerUp", timerFont, bottomBrush, 100, 50);
+            }            
+            // e.Graphics.DrawString("Hunger Level", timerFont, heroBrush, 0, 25);
+            //if (hungerBarCounter >= 100)
+            //{
+            //    e.Graphics.FillRectangle(heroBrush, hungerX, hungerY, hungerSizeLength, hungerSizeWidth);
+            //    if(spaceDown == true && hungerBarCounter >0)
+            //    {
+            //        hungerX--;
+            //    }
+            //}
             //Enemys
             for (int i = 0; i < enemeyX.Count; i++)
             {
-                if (enemeySize[i] == 45)
+                if (enemeySize[i] == paperPlaneSize)
                 {
                     e.Graphics.DrawImage(Properties.Resources.paper_plane, enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
                 }
@@ -474,26 +499,23 @@ namespace GameTemplate.Screens
                 {
                     e.Graphics.DrawImage(Properties.Resources.cone, enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
                 }
-                if (enemeySize[i] == 40)
+                if (enemeySize[i] == birdSize)
                 {
-                    e.Graphics.DrawImage(Properties.Resources.bird, enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
+                    e.Graphics.DrawImage(Properties.Resources.Bird, enemeyX[i], enemeyY[i], enemeySize[i], enemeySize[i]);
                 }
             }
             //PowerUps
             for (int i = 0; i < powerUpX.Count; i++)
             {
-                if (powerUpSize[i] == toastSize)
-                {
-                    e.Graphics.DrawImage(Properties.Resources.toast, powerUpX[i], powerUpY[i], powerUpSize[i], powerUpSize[i]);
-                }
+                //if (powerUpSize[i] == toastSize)
+                //{
+                //    e.Graphics.DrawImage(Properties.Resources.toast, powerUpX[i], powerUpY[i], powerUpSize[i], powerUpSize[i]);
+                //}
                 if (powerUpSize[i] == umbrelllaSize)
                 {
                     e.Graphics.DrawImage(Properties.Resources.umbrella, powerUpX[i], powerUpY[i], powerUpSize[i], powerUpSize[i]);
                 }
             }
-
-
-
         }
         //Geneartes what will spawn for enemys
         private void SpawnGen()
@@ -513,48 +535,43 @@ namespace GameTemplate.Screens
                     //Paperplane and adds values to apporiate list
                     enemeyX.Add(heroX + 1000);
                     enemeyY.Add(heroY);
-                    enemeySize.Add(heroSize - 5);
+                    enemeySize.Add(paperPlaneSize);
                     break;
                 case 2:
                     //Bird and adds values to apporiate list
                     enemeyX.Add(heroX + 1000);
-                    enemeyX.Add(heroX + 1000);
                     enemeyY.Add(heroY);
-                    enemeySize.Add(heroSize - 10);
+                    enemeySize.Add(birdSize);
                     break;
                 case 3:
                     //Pylon and adds values to apporiate list
                     enemeyX.Add(heroX + 1000);
-                    enemeyX.Add(heroX + 1000);
                     enemeyY.Add(pylonY);
                     enemeySize.Add(pylonSize);
                     //Bird and adds values to apporiate list
-                    enemeyX.Add(heroX + 1000);
-                    enemeyX.Add(heroX + 1200);
+                    enemeyX.Add(heroX + 1400);
                     enemeyY.Add(heroY);
-                    enemeySize.Add(heroSize - 10);
+                    enemeySize.Add(birdSize);
                     break;
                 case 4:
                     //Pylon and adds values to apporiate list
                     enemeyX.Add(heroX + 1000);
-                    enemeyX.Add(heroX + 1000);
                     enemeyY.Add(pylonY);
                     enemeySize.Add(pylonSize);
                     //Paperplane and adds values to apporiate list
-                    enemeyX.Add(heroX + 1000);
-                    enemeyX.Add(heroX + 1200);
+                    enemeyX.Add(heroX + 1400);
                     enemeyY.Add(heroY);
-                    enemeySize.Add(heroSize - 5);
+                    enemeySize.Add(paperPlaneSize);
                     break;
                 case 5:
                     //Paperplane and adds values to apporiate list
                     enemeyX.Add(heroX + 1000);
                     enemeyY.Add(heroY);
-                    enemeySize.Add(heroSize - 5);
+                    enemeySize.Add(paperPlaneSize);
                     //Bird and adds values to apporiate list
-                    enemeyX.Add(heroX + 1200);
+                    enemeyX.Add(heroX + 1600);
                     enemeyY.Add(heroY);
-                    enemeySize.Add(heroSize - 10);
+                    enemeySize.Add(birdSize);
                     break;
             }
 
@@ -566,28 +583,30 @@ namespace GameTemplate.Screens
             {
                 gameTimer.Enabled = false;
                 rightArrowDown = leftArrowDown = upArrowDown = downArrowDown = false;
-                ScreenControl.changeScreen(this, "LostScreen");
+                backSongPlayer.Stop();
+                ScreenControl.changeScreen(this, "WinScreen");
             }
-            if (lineX <= heroX)
+            if (heroX > lineLength)
             {
                 gameTimer.Enabled = false;
                 rightArrowDown = leftArrowDown = upArrowDown = downArrowDown = false;
-                ScreenControl.changeScreen(this, "ScoreScren");
+                backSongPlayer.Stop();
+                ScreenControl.changeScreen(this, "LostScreen");
             }
         }
         private void PowerUpGen()
         {
             powerUpOccurenceCounter = 0;
-            powerUpSpwn = randGen.Next(0, 2);
+            powerUpSpwn = randGen.Next(1, 2);
 
             switch (powerUpSpwn)
             {
-                case 0:
-                    //Toast and adds values to apporiate list
-                    powerUpX.Add(heroX + 1100);
-                    powerUpY.Add(toastY);
-                    powerUpSize.Add(toastSize);
-                    break;
+                //case 0:
+                //    //Toast and adds values to apporiate list
+                //    powerUpX.Add(heroX + 1100);
+                //    powerUpY.Add(toastY);
+                //    powerUpSize.Add(toastSize);
+                //    break;
                 case 1:
                     //Umbrella and adds values to apporiate list
                     powerUpX.Add(heroX + 1100);

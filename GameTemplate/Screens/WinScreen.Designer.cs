@@ -45,6 +45,7 @@
             this.exitButton.TabIndex = 12;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = false;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click_1);
             // 
             // playAgainButton
             // 
@@ -73,9 +74,9 @@
             this.winLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.winLabel.Location = new System.Drawing.Point(3, 23);
             this.winLabel.Name = "winLabel";
-            this.winLabel.Size = new System.Drawing.Size(342, 89);
+            this.winLabel.Size = new System.Drawing.Size(354, 101);
             this.winLabel.TabIndex = 15;
-            this.winLabel.Text = "Congrats, you won! ..... nothing!";
+            this.winLabel.Text = "Congrats! You made it to school on time. Now scram!";
             // 
             // WinScreen
             // 

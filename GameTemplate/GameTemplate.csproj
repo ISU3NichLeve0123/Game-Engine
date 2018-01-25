@@ -31,8 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>icons8-running-64.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -139,66 +140,73 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\cone-clipart-safety-cone-12.png" />
+    <EmbeddedResource Include="Resources\cone-clipart-safety-cone-12.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Cone.bmp" />
+    <EmbeddedResource Include="Resources\Cone.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\paper_plane_by_hoangvanvan-d60qy1j.png" />
+    <EmbeddedResource Include="Resources\paper_plane_by_hoangvanvan-d60qy1j.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cb5d873d48e56e33a6971ef927cf430d-school-bus-illustration-by-vexels.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\9be88ed5-05ae-41f3-b1af-22b2e2e529b5.png" />
+    <EmbeddedResource Include="Resources\9be88ed5-05ae-41f3-b1af-22b2e2e529b5.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Idle %281%29.png" />
+    <EmbeddedResource Include="Resources\Idle %281%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Jump %2810%29.png" />
+    <EmbeddedResource Include="Resources\Jump %2810%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Run %281%29.png" />
+    <EmbeddedResource Include="Resources\Run %281%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Run %2811%29.png" />
+    <EmbeddedResource Include="Resources\Run %2811%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Car Horn Honk 1-SoundBible.com-248048021.wav" />
+    <EmbeddedResource Include="Resources\Greater Yellowlegs Call-SoundBible.com-103160061.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Class Bell-SoundBible.com-1426436341.wav" />
+    <EmbeddedResource Include="Resources\Jump-SoundBible.com-1007297584.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Greater Yellowlegs Call-SoundBible.com-103160061.wav" />
+    <EmbeddedResource Include="Resources\Power-Up-KP-1879176533.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Jump-SoundBible.com-1007297584.wav" />
+    <EmbeddedResource Include="Resources\punch_or_whack_-Vladimir-403040765.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Power-Up-KP-1879176533.wav" />
+    <EmbeddedResource Include="Resources\spear_throw-Mike_Koenig-2064202968.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\punch_or_whack_-Vladimir-403040765.wav" />
+    <EmbeddedResource Include="Resources\8 BitDAYS of DASH %28Sakurasou no Pet na Kanojo ED%29 耳コピ.mp3" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\spear_throw-Mike_Koenig-2064202968.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\8 BitDAYS of DASH %28Sakurasou no Pet na Kanojo ED%29 耳コピ.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BackSong.mp3">
+    <EmbeddedResource Include="Resources\BackSong.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\toast.jpg" />
+    <EmbeddedResource Include="Resources\toast.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\umbrella.jpg" />
+    <EmbeddedResource Include="Resources\umbrella.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\school.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\icons8-running-64.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icons8-running-64.ico" />
+    <EmbeddedResource Include="Resources\umbrella.png" />
+    <EmbeddedResource Include="Resources\Bird.png" />
+    <EmbeddedResource Include="Resources\full-background.png" />
+    <EmbeddedResource Include="Resources\SCHOOL BACKROUND.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -49,5 +49,10 @@ namespace GameTemplate.Screens
         {
             ScreenControl.changeScreen(this, "MenuScreen");
         }
+
+        private void lostLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -83,9 +83,9 @@ namespace GameTemplate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bird {
+        internal static System.Drawing.Bitmap Bird {
             get {
-                object obj = ResourceManager.GetObject("bird", resourceCulture);
+                object obj = ResourceManager.GetObject("Bird", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -119,11 +119,31 @@ namespace GameTemplate.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap full_background {
+            get {
+                object obj = ResourceManager.GetObject("full_background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream Greater_Yellowlegs_Call_SoundBible_com_103160061 {
             get {
                 return ResourceManager.GetStream("Greater_Yellowlegs_Call_SoundBible_com_103160061", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon icons8_running_64 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_running_64", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -200,6 +220,26 @@ namespace GameTemplate.Properties {
         internal static System.Drawing.Bitmap Run__11_ {
             get {
                 object obj = ResourceManager.GetObject("Run__11_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap school {
+            get {
+                object obj = ResourceManager.GetObject("school", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SCHOOL_BACKROUND {
+            get {
+                object obj = ResourceManager.GetObject("SCHOOL_BACKROUND", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

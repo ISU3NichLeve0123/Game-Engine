@@ -32,17 +32,6 @@ namespace GameTemplate.Screens
         {
             ScreenControl.changeScreen(this, "InstructionScreen");
         }
-
-        private void scoresButton_Click(object sender, EventArgs e)
-        {
-            ScreenControl.changeScreen(this, "ScoreScreen");
-        }
-
-        private void optionsButton_Click(object sender, EventArgs e)
-        {
-            ScreenControl.changeScreen(this, "OptionScreen");
-        }
-
         private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();

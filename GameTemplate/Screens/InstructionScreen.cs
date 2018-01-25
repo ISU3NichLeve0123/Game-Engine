@@ -21,5 +21,10 @@ namespace GameTemplate.Screens
         {
             ScreenControl.changeScreen(this, "MenuScreen");
         }
+
+        private void howToPlayLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -63,10 +63,10 @@ namespace GameTemplate
                 case "MenuScreen":
                     ns = new MenuScreen();
                     break;
-                case "OptionScreen":
+                case "LostScreen":
                     ns = new WinScreen();
                     break;
-                case "ScoreScreen":
+                case "WinScreen":
                     ns = new LostScreen();
                     break;
 

@@ -43,5 +43,10 @@ namespace GameTemplate.Screens
         {
             ScreenControl.changeScreen(this, "GameScreen");
         }
+
+        private void exitButton_Click_1(object sender, EventArgs e)
+        {
+            ScreenControl.changeScreen(this, "MenuScreen");
+        }
     }
 }
